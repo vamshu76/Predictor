@@ -18,7 +18,7 @@ with col1:
     fly_ash = st.number_input('Fly Ash (0 to 4.4)', min_value = 0.0, max_value = 4.4)
     fly_ash_type_label = st.selectbox('Fly Ash Type', options=list(fly_ash_type_dict.keys()))
     fly_ash_type = fly_ash_type_dict[fly_ash_type_label]
-    sand = st.number_input('Sand(0.7 to 2)', min_value = 0.0, max_value = 2)
+    sand = st.number_input('Sand(0.7 to 2)', min_value = 0.0, max_value = 2.0)
     sand_type_label = st.selectbox('Sand Type', options=list(sand_type_dict.keys()))
     sand_type = sand_type_dict[sand_type_label]
     avg_sand_size = st.number_input('Average Sand Size(µm) (0 to 943)', min_value = 24.0, max_value = 1000.0)
