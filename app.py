@@ -22,7 +22,7 @@ with col1:
     sand_type_label = st.selectbox('Sand Type', options=list(sand_type_dict.keys()))
     sand_type = sand_type_dict[sand_type_label]
     avg_sand_size = st.number_input('Average Sand Size(µm) (0 to 943)', min_value = 24.0, max_value = 1000.0)
-    max_sand_size = st.number_input('Max Sand Size(µm) (0 to 4750)', min_value = 0.0, max_value = 4750.0)
+    max_sand_size = st.number_input('Max Sand Size(µm) (0 to 4750)', min_value = 100.0, max_value = 4750.0)
     w_b = st.number_input('Water/Binder (0.16 to .87)', min_value = 0.16, max_value = .87)
     sp = st.number_input('Superplasticizer/Binder (.12 to 2.72)', min_value = 0.12, max_value = 2.72)
     
