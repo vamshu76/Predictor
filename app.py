@@ -18,11 +18,11 @@ with col1:
     fly_ash = st.number_input('Fly Ash (0 to 4.4)', min_value = 0.0, max_value = 4.4)
     fly_ash_type_label = st.selectbox('Fly Ash Type', options=list(fly_ash_type_dict.keys()))
     fly_ash_type = fly_ash_type_dict[fly_ash_type_label]
-    sand = st.number_input('Sand(0.7 to 2)', min_value = 0.0, max_value = 2.0)
+    sand = st.number_input('Sand(0.7 to 2)', min_value = 0.0, max_value = 2)
     sand_type_label = st.selectbox('Sand Type', options=list(sand_type_dict.keys()))
     sand_type = sand_type_dict[sand_type_label]
     avg_sand_size = st.number_input('Average Sand Size(µm) (0 to 943)', min_value = 24.0, max_value = 1000.0)
-    max_sand_size = st.number_input('Max Sand Size(µm) (0 to 4750)', min_value = 100.0, max_value = 4750.0)
+    max_sand_size = st.number_input('Max Sand Size(µm) (0 to 4750)', min_value = 100.0, max_value = 4750.00)
     w_b = st.number_input('Water/Binder (0.16 to .87)', min_value = 0.16, max_value = .87)
     sp = st.number_input('Superplasticizer/Binder (.12 to 2.72)', min_value = 0.12, max_value = 2.72)
     
@@ -44,8 +44,13 @@ with col3:
         st.write(f'CS value: {pred[0]}')
         
         model = pickle.load(open('ts.sav', 'rb'))
-        pred = best_rf.predict(features)
+        pred = best_dt.predict(features)
         st.write(f'TS value: {pred[0]}')
+        
+        model = pickle.load(open('fs.sav', 'rb'))
+        pred = best_dt.predict(features)
+        st.write(f'FS value: {pred[0]}')
+
         
         model = pickle.load(open('fs.sav', 'rb'))
         pred = best_rf.predict(features)
