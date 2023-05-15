@@ -44,14 +44,12 @@ with col3:
         st.write(f'CS value: {pred[0]}')
         
         model = pickle.load(open('ts.sav', 'rb'))
-        pred = best_dt.predict(features)
+        pred = best_rf.predict(features)
         st.write(f'TS value: {pred[0]}')
-        
-        model = pickle.load(open('fs.sav', 'rb'))
-        pred = best_dt.predict(features)
-        st.write(f'FS value: {pred[0]}')
-
         
         model = pickle.load(open('fs.sav', 'rb'))
         pred = best_rf.predict(features)
         st.write(f'FS value: {pred[0]}')
+
+        
+        
