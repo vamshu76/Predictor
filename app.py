@@ -39,15 +39,15 @@ with col3:
     st.write('Predictions')
 
     if st.button('Predict'):
-        model = pickle.load(open('cs.sav', 'rb'))
+        best_rf = pickle.load(open('cs.sav', 'rb'))
         pred = best_rf.predict(features)
         st.write(f'CS value: {pred[0]}')
         
-        model = pickle.load(open('ts.sav', 'rb'))
+        best_rf = pickle.load(open('ts.sav', 'rb'))
         pred = best_rf.predict(features)
         st.write(f'TS value: {pred[0]}')
         
-        model = pickle.load(open('fs.sav', 'rb'))
+        best_rf = pickle.load(open('fs.sav', 'rb'))
         pred = best_rf.predict(features)
         st.write(f'FS value: {pred[0]}')
 
