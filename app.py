@@ -18,7 +18,7 @@ with col1:
     fly_ash = st.number_input('Fly Ash (0 to 4.4)', min_value = 0.0, max_value = 4.4)
     fly_ash_type_label = st.selectbox('Fly Ash Type', options=list(fly_ash_type_dict.keys()))
     fly_ash_type = fly_ash_type_dict[fly_ash_type_label]
-    sand = st.number_input('Sand(0.7 to 2)', min_value = 0.0, max_value = 2)
+    sand = st.number_input('Sand(0.7 to 2)', min_value = 0.0, max_value = 2.0)
     sand_type_label = st.selectbox('Sand Type', options=list(sand_type_dict.keys()))
     sand_type = sand_type_dict[sand_type_label]
     avg_sand_size = st.number_input('Average Sand Size(µm) (0 to 943)', min_value = 0.0, max_value = 6.9)
@@ -29,7 +29,7 @@ with col1:
 with col2:
     st.write('PVA Fiber Properties')
     fibre_length = st.number_input('Fibre Length(mm) (8 to 18)', min_value = 8.0, max_value = 18.0)
-    fibre_volume = st.number_input('Fibre Volume(%) (1 to 2.5)', min_value = 1, max_value = 2.5)
+    fibre_volume = st.number_input('Fibre Volume(%) (1 to 2.5)', min_value = 1.0, max_value = 2.5)
     fibre_dia = st.number_input('Fibre Diameter(µm) (34 to 40)', min_value = 34.0, max_value = 40.0)
 
 features = np.array([fly_ash, fly_ash_type, sand, sand_type, avg_sand_size,max_sand_size, w_b, sp, fibre_length, fibre_volume,  fibre_dia])
