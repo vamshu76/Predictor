@@ -3,6 +3,8 @@ import streamlit as st
 import pickle
 import numpy as np
 import pandas as pd
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
 
 
 xls = pd.ExcelFile('Final Data.xlsx')
@@ -87,9 +89,9 @@ features_cs = np.array([fly_ash, fly_ash_type, sand, sand_type, avg_sand_size, m
 features_ts = np.array([fly_ash, fly_ash_type, sand, sand_type, avg_sand_size, max_sand_size, limestone, limestone_max_size, bfs, silica_fume, w_b, sp, fiber_type, fibre_length, fibre_volume, fibre_elasticity, fibre_dia, tensile_strength, fibre_density ])
 features_fs = np.array([fly_ash, fly_ash_type, sand, sand_type, avg_sand_size, max_sand_size, limestone, limestone_max_size, bfs, w_b, sp, fiber_type, fibre_length, fibre_volume, fibre_elasticity, fibre_dia, tensile_strength, fibre_density ])
 
-scaled_features_cs = scaler_cs.transform(features_cs)
-scaled_features_ts = scaler_ts.transform(features_ts)
-scaled_features_fs = scaler_fs.transform(features_fs)
+scaled_features_cs = scaler_cs.transform(features_cs.reshape(1, -1))
+scaled_features_ts = scaler_ts.transform(features_ts.reshape(1, -1))
+scaled_features_fs = scaler_fs.transform(features_fs.reshape(1, -1))
 
 pca_features_cs = pca_cs.transform(scaled_features_cs)
 pca_features_ts = pca_ts.transform(scaled_features_ts)
