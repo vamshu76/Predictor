@@ -48,7 +48,7 @@ with col2:
     fiber_type_label = st.selectbox('Fiber Type', options=list(fiber_type_dict.keys()))
     fiber_type = fiber_type_dict[fiber_type_label]
     fibre_length = st.number_input('Fibre Length(mm) (8 to 18)', min_value = 8.0, max_value = 18.0)
-    fibre_volume = st.number_input('Fibre Volume(%) (0.41 to 3)', min_value = 0.41, max_value = 3)
+    fibre_volume = st.number_input('Fibre Volume(%) (0.41 to 3)', min_value = 0.41, max_value = 3.0)
     fibre_elasticity = st.number_input('Fibre Elasticity(Gpa) (10 to 116)', min_value = 10.0, max_value = 116.0)
     fibre_dia = st.number_input('Fibre Diameter(µm) (24 to 200)', min_value = 24.0, max_value = 200.0)
     tensile_strength = st.number_input('Tensile Strength(Mpa) (1275 to 3000)', min_value = 1275.0, max_value = 3000.0)
