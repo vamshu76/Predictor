@@ -3,21 +3,47 @@ import streamlit as st
 import pickle
 import numpy as np
 
+xls = pd.ExcelFile('Final Data.xlsx')
+df_cs = pd.read_excel(xls, 'CS')
+df_ts = pd.read_excel(xls, 'TS')
+df_fs = pd.read_excel(xls, 'FS')
+
+df_cs = df_cs.drop(['Ref.', 'S no', 'Aspect Ratio', 'Cement'], axis=1)
+df_ts = df_ts.drop(['S no', 'Ref.', 'Aspect Ratio', 'Cement'], axis=1)
+df_fs = df_fs.drop(['S no', 'Ref.', 'Aspect Ratio','Cement','Silica Fume'], axis=1)
+
+cs_x, ts_x, fs_x = df_cs.drop(['Compressive Strength (Mpa)'], axis=1), df_ts.drop(['Tensile Strain (%)'], axis=1), df_fs.drop(['Flexural Strength (Mpa)'], axis=1)
+
+scaler_cs = StandardScaler()
+scaler_ts = StandardScaler()
+scaler_fs = StandardScaler()
+cs_x, ts_x, fs_x = scaler_cs.fit_transform(cs_x), scaler_ts.fit_transform(ts_x), scaler_fs.fit_transform(fs_x)
+
+n_components_cs = 17
+pca_cs = PCA(n_components=n_components_cs)
+pca_data_cs = pca_cs.fit_transform(cs_x)
+
+n_components_ts = 15
+n_components_fs = 13
+pca_ts = PCA(n_components=n_components_ts)
+pca_fs = PCA(n_components=n_components_fs)
+pca_data_ts = pca_ts.fit_transform(ts_x)
+pca_data_fs = pca_fs.fit_transform(fs_x)
 
 st.set_page_config(layout="wide")
 
 st.title('Micromechanical Properties Prediction Application')
 
 # Load scaler, PCA, and models
-scaler_cs = pickle.load(open('scaler_cs.pkl', 'rb'))
-scaler_ts = pickle.load(open('scaler_ts.pkl', 'rb'))
-scaler_fs = pickle.load(open('scaler_fs.pkl', 'rb'))
-pca_cs = pickle.load(open('pca_cs.pkl', 'rb'))
-pca_ts = pickle.load(open('pca_ts.pkl', 'rb'))
-pca_fs = pickle.load(open('pca_fs.pkl', 'rb'))
-model_cs = pickle.load(open('cs.sav', 'rb'))
-model_ts = pickle.load(open('ts.sav', 'rb'))
-model_fs = pickle.load(open('fs.sav', 'rb'))
+#scaler_cs = pickle.load(open('scaler_cs.pkl', 'rb'))
+#scaler_ts = pickle.load(open('scaler_ts.pkl', 'rb'))
+#scaler_fs = pickle.load(open('scaler_fs.pkl', 'rb'))
+#pca_cs = pickle.load(open('pca_cs.pkl', 'rb'))
+#pca_ts = pickle.load(open('pca_ts.pkl', 'rb'))
+#pca_fs = pickle.load(open('pca_fs.pkl', 'rb'))
+#model_cs = pickle.load(open('cs.sav', 'rb'))
+#model_ts = pickle.load(open('ts.sav', 'rb'))
+#model_fs = pickle.load(open('fs.sav', 'rb'))
 
 # inputs
 col1, col2, col3 = st.columns(3)
@@ -59,9 +85,9 @@ features_cs = np.array([fly_ash, fly_ash_type, sand, sand_type, avg_sand_size, m
 features_ts = np.array([fly_ash, fly_ash_type, sand, sand_type, avg_sand_size, max_sand_size, limestone, limestone_max_size, bfs, silica_fume, w_b, sp, fiber_type, fibre_length, fibre_volume, fibre_elasticity, fibre_dia, tensile_strength, fibre_density ])
 features_fs = np.array([fly_ash, fly_ash_type, sand, sand_type, avg_sand_size, max_sand_size, limestone, limestone_max_size, bfs, w_b, sp, fiber_type, fibre_length, fibre_volume, fibre_elasticity, fibre_dia, tensile_strength, fibre_density ])
 
-scaled_features_cs = scaler_cs.transform(features_cs.reshape(1, -1))
-scaled_features_ts = scaler_ts.transform(features_ts.reshape(1, -1))
-scaled_features_fs = scaler_fs.transform(features_fs.reshape(1, -1))
+scaled_features_cs = scaler_cs.transform(features_cs)
+scaled_features_ts = scaler_ts.transform(features_ts)
+scaled_features_fs = scaler_fs.transform(features_fs)
 
 pca_features_cs = pca_cs.transform(scaled_features_cs)
 pca_features_ts = pca_ts.transform(scaled_features_ts)
