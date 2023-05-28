@@ -5,6 +5,12 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
+iit_logo = "https://your_image_url.jpg"
+st.markdown(
+    f"<div style='text-align: right'><img src='{image_url}'></div>", 
+    unsafe_allow_html=True,
+)
+
 xls = pd.ExcelFile('Final Data.xlsx')
 df_cs = pd.read_excel(xls, 'CS')
 df_ts = pd.read_excel(xls, 'TS')
@@ -58,7 +64,7 @@ sand_type_dict = {"Silica Sand": 1, "Crushed Sand": 2, "Gravel Sand": 3, "Dune S
 fiber_type_dict = {"PVA Fiber" : 1, "PE Fiber" : 2}
 
 with col1:
-    st.header('📝 Mix Proportions Ratio')
+    st.header('📊 Mix Proportions Ratio')
     fly_ash = st.number_input('Fly Ash (0 to 4.4)', min_value = 0.0, max_value = 4.4)
     fly_ash_type_label = st.selectbox('Fly Ash Type', options=list(fly_ash_type_dict.keys()))
     fly_ash_type = fly_ash_type_dict[fly_ash_type_label]
@@ -75,7 +81,7 @@ with col1:
     sp = st.number_input('Superplasticizer/Binder (0 to 2.5)', min_value = 0.0, max_value = 2.5)
 
 with col2:
-    st.header('📝 PVA Fiber Properties')
+    st.header('🔬 PVA Fiber Properties')
     fiber_type_label = st.selectbox('Fiber Type', options=list(fiber_type_dict.keys()))
     fiber_type = fiber_type_dict[fiber_type_label]
     fibre_length = st.number_input('Fibre Length(mm) (8 to 18)', min_value = 8.0, max_value = 18.0)
