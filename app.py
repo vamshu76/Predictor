@@ -44,7 +44,7 @@ iit_logo = "iitr.jpg"
 image = open(iit_logo, "rb").read()
 st.markdown(
     f'<img src="data:image/jpg;base64,{base64.b64encode(image).decode("utf-8")}" '
-    'style="width: 1350px; height: 230px;">',
+    'style="width: 1000px; height: 230px;">',
     unsafe_allow_html=True
 )
 st.title('🧱 ECC Micromechanical Properties Prediction Application')
