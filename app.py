@@ -13,9 +13,9 @@ scaler_fs = pickle.load(open('scaler_fs.pkl', 'rb'))
 pca_cs = pickle.load(open('pca_cs.pkl', 'rb'))
 pca_ts = pickle.load(open('pca_ts.pkl', 'rb'))
 pca_fs = pickle.load(open('pca_fs.pkl', 'rb'))
-model_cs = pickle.load(open('cs.sav', 'rb'))
-model_ts = pickle.load(open('ts.sav', 'rb'))
-model_fs = pickle.load(open('fs.sav', 'rb'))
+model_cs = pickle.load(open('cs.sav', 'wb'))
+model_ts = pickle.load(open('ts.sav', 'wb'))
+model_fs = pickle.load(open('fs.sav', 'wb'))
 
 # inputs
 col1, col2, col3 = st.columns(3)
