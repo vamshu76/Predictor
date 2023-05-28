@@ -44,14 +44,14 @@ iit_logo = "iitr.jpg"
 image = open(iit_logo, "rb").read()
 st.markdown(
     f'<img src="data:image/jpg;base64,{base64.b64encode(image).decode("utf-8")}" '
-    'style="width: 1100px; height: 230px;">',
+    'style="width: 1150px; height: 190px;">',
     unsafe_allow_html=True
 )
 iit_175_logo = "logo_175.png"
 image = open(iit_175_logo, "rb").read()
 st.markdown(
     f"""
-    <div style="position: absolute; top: -250px; right: -50px;">
+    <div style="position: absolute; top: -250px; right: -10px;">
         <img src="data:image/jpg;base64,{base64.b64encode(image).decode("utf-8")}" style="width: 340px; height: 100px;">
     </div>
     """,
