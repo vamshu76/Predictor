@@ -5,11 +5,7 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
-iit_logo = "IITR-175-logo.jpg"
-st.markdown(
-    f"<div style='text-align: right'><img src='{iit_logo}'></div>", 
-    unsafe_allow_html=True,
-)
+
 
 xls = pd.ExcelFile('Final Data.xlsx')
 df_cs = pd.read_excel(xls, 'CS')
@@ -43,6 +39,11 @@ st.set_page_config(
     page_icon="🧱",
     layout="wide",
     initial_sidebar_state="expanded",
+)
+iit_logo = "IITR-175-logo.jpg"
+st.markdown(
+    f"<div style='text-align: right'><img src='{iit_logo}'></div>", 
+    unsafe_allow_html=True,
 )
 
 st.title('🧱 Micromechanical Properties Prediction Application')
