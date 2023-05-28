@@ -46,7 +46,7 @@ b64_image = base64.b64encode(image).decode("utf-8")
 image_html = f'<img src="data:image/jpg;base64,{b64_image}" style="position: fixed; top: 50px; right: 10px; width: 130px; height: 130px;">'
 st.markdown(image_html, unsafe_allow_html=True)
 
-st.title('🧱 Micromechanical Properties Prediction Application')
+st.title('🧱 ECC Micromechanical Properties Prediction Application')
 
 st.write("""
 In this application, you can predict the Compressive Strength (CS), Tensile Strain (TS), and Flexural Strength (FS) 
