@@ -35,12 +35,12 @@ pca_data_ts = pca_ts.fit_transform(ts_x)
 pca_data_fs = pca_fs.fit_transform(fs_x)
 
 
-    st.set_page_config(
-        page_title="Micromechanical Properties Prediction",
-        page_icon="🧱",
-        layout="wide",
-        initial_sidebar_state="expanded"
-    )
+st.set_page_config(
+    page_title="Micromechanical Properties Prediction",
+    page_icon="🧱",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 iit_logo = "iitr.jpg"
 image = open(iit_logo, "rb").read()
