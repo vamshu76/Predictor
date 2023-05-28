@@ -71,11 +71,11 @@ with col3:
     st.write('Predictions')
 
     if st.button('Predict'):
-        pred_cs = model_cs.predict(pca_features_cs)
+        pred_cs = best_model.predict(pca_features_cs)
         st.write(f'CS value: {pred_cs[0]}')
 
-        pred_ts = model_ts.predict(pca_features_ts)
+        pred_ts = best_model.predict(pca_features_ts)
         st.write(f'TS value: {pred_ts[0]}')
 
-        pred_fs = model_fs.predict(pca_features_fs)
+        pred_fs = best_model.predict(pca_features_fs)
         st.write(f'FS value: {pred_fs[0]}')
