@@ -40,7 +40,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
-iit_logo = "IITR-175-logo.jpg"
+iit_logo = "iitr_logo.jpg"
 st.markdown(
     f"<div style='text-align: right'><img src='{iit_logo}'></div>", 
     unsafe_allow_html=True,
