@@ -7,7 +7,7 @@ from sklearn.decomposition import PCA
 
 iit_logo = "IITR-175-logo.jpg"
 st.markdown(
-    f"<div style='text-align: right'><img src='{IITR-175-logo.jpg}'></div>", 
+    f"<div style='text-align: right'><img src='{iit_logo}'></div>", 
     unsafe_allow_html=True,
 )
 
