@@ -34,32 +34,14 @@ pca_fs = PCA(n_components=n_components_fs)
 pca_data_ts = pca_ts.fit_transform(ts_x)
 pca_data_fs = pca_fs.fit_transform(fs_x)
 
-device = platform.system()
 
-if device == "Windows" or device == "Darwin":
-    # Wide display for Windows and macOS
     st.set_page_config(
         page_title="Micromechanical Properties Prediction",
         page_icon="🧱",
         layout="wide",
         initial_sidebar_state="expanded"
     )
-elif device == "Linux":
-    # Centered display for Linux
-    st.set_page_config(
-        page_title="Micromechanical Properties Prediction",
-        page_icon="🧱",
-        layout="centered",
-        initial_sidebar_state="expanded"
-    )
-else:
-    # Default layout for other platforms
-    st.set_page_config(
-        page_title="Micromechanical Properties Prediction",
-        page_icon="🧱",
-        layout="wide",
-        initial_sidebar_state="expanded"
-    )
+
 iit_logo = "iitr.jpg"
 image = open(iit_logo, "rb").read()
 st.markdown(
