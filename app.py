@@ -40,7 +40,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
-iit_logo = "iitr_logo.jpg"
+iit_logo = "https://github.com/vamshu76/Predictor/blob/4baf29e9ad8f676f6d3b75547e47e9ddc6836659/iitr_logo.jpg"
 st.markdown(
     f"<div style='text-align: right'><img src='{iit_logo}'></div>", 
     unsafe_allow_html=True,
