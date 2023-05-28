@@ -42,8 +42,9 @@ st.set_page_config(
 )
 iit_logo = "iitr.jpg"
 image = open(iit_logo, "rb").read()
-
 st.image(image, use_column_width=True)
+st.image(image, width=450, height=130)
+
 st.title('🧱 ECC Micromechanical Properties Prediction Application')
 
 st.write("""
