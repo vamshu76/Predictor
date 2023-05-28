@@ -40,7 +40,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
-iit_logo = "iitr_logo.jpg"
+iit_logo = "logo_175.png"
 image = open(iit_logo, "rb").read()
 b64_image = base64.b64encode(image).decode("utf-8")
 image_html = f'<img src="data:image/jpg;base64,{b64_image}" style="position: fixed; top: 50px; right: 10px; width: 130px; height: 130px;">'
