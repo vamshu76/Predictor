@@ -43,7 +43,7 @@ st.set_page_config(
 iit_logo = "iitr_logo.jpg"
 image = open(iit_logo, "rb").read()
 st.image(image, use_column_width=True, caption="<div style='text-align: right'>IIT Logo</div>", unsafe_allow_html=True)
-)
+
 st.title('🧱 Micromechanical Properties Prediction Application')
 
 st.write("""
