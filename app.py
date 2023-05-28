@@ -2,9 +2,7 @@
 import streamlit as st
 import pickle
 import numpy as np
-import os
 
-os.system('pip install xgboost')
 
 st.set_page_config(layout="wide")
 
