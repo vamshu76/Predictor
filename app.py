@@ -51,7 +51,7 @@ iit_175_logo = "logo_175.png"
 image = open(iit_175_logo, "rb").read()
 st.markdown(
     f"""
-    <div style="position: absolute; top: -180px; right: 70px;">
+    <div style="position: absolute; top: -180px; right: 100px;">
         <img src="data:image/jpg;base64,{base64.b64encode(image).decode("utf-8")}" style="width: 280px; height: 83px;">
     </div>
     """,
