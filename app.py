@@ -1,11 +1,9 @@
-
 import streamlit as st
 import pickle
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
-
 
 xls = pd.ExcelFile('Final Data.xlsx')
 df_cs = pd.read_excel(xls, 'CS')
@@ -34,22 +32,25 @@ pca_fs = PCA(n_components=n_components_fs)
 pca_data_ts = pca_ts.fit_transform(ts_x)
 pca_data_fs = pca_fs.fit_transform(fs_x)
 
-st.set_page_config(layout="wide")
+st.set_page_config(
+    page_title="Micromechanical Properties Prediction",
+    page_icon="🧱",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
 
-st.title('Micromechanical Properties Prediction Application')
+st.title('🧱 Micromechanical Properties Prediction Application')
 
-# Load scaler, PCA, and models
-#scaler_cs = pickle.load(open('scaler_cs.pkl', 'rb'))
-#scaler_ts = pickle.load(open('scaler_ts.pkl', 'rb'))
-#scaler_fs = pickle.load(open('scaler_fs.pkl', 'rb'))
-#pca_cs = pickle.load(open('pca_cs.pkl', 'rb'))
-#pca_ts = pickle.load(open('pca_ts.pkl', 'rb'))
-#pca_fs = pickle.load(open('pca_fs.pkl', 'rb'))
+st.write("""
+In this application, you can predict the Compressive Strength (CS), Tensile Strain (TS), and Flexural Strength (FS) 
+of a material based on its properties. 
+Please input the required material properties in the fields below to get the predictions.
+""")
+
 model_cs = pickle.load(open('cs.sav', 'rb'))
 model_ts = pickle.load(open('ts.sav', 'rb'))
 model_fs = pickle.load(open('fs.sav', 'rb'))
 
-# inputs
 col1, col2, col3 = st.columns(3)
 
 fly_ash_type_dict = {"No Fly Ash": 0, "Class C": 1, "Class F": 2, "Grade I": 3}
@@ -57,7 +58,7 @@ sand_type_dict = {"Silica Sand": 1, "Crushed Sand": 2, "Gravel Sand": 3, "Dune S
 fiber_type_dict = {"PVA Fiber" : 1, "PE Fiber" : 2}
 
 with col1:
-    st.write('Mix Proportions Ratio')
+    st.header('📝 Mix Proportions Ratio')
     fly_ash = st.number_input('Fly Ash (0 to 4.4)', min_value = 0.0, max_value = 4.4)
     fly_ash_type_label = st.selectbox('Fly Ash Type', options=list(fly_ash_type_dict.keys()))
     fly_ash_type = fly_ash_type_dict[fly_ash_type_label]
@@ -74,7 +75,7 @@ with col1:
     sp = st.number_input('Superplasticizer/Binder (0 to 2.5)', min_value = 0.0, max_value = 2.5)
 
 with col2:
-    st.write('PVA Fiber Properties')
+    st.header('📝 PVA Fiber Properties')
     fiber_type_label = st.selectbox('Fiber Type', options=list(fiber_type_dict.keys()))
     fiber_type = fiber_type_dict[fiber_type_label]
     fibre_length = st.number_input('Fibre Length(mm) (8 to 18)', min_value = 8.0, max_value = 18.0)
@@ -84,7 +85,6 @@ with col2:
     tensile_strength = st.number_input('Tensile Strength(Mpa) (1275 to 3000)', min_value = 1275.0, max_value = 3000.0)
     fibre_density = st.number_input('Fibre Density(Kg/m3) (970 to 1600)', min_value = 970.0, max_value = 1600.0)
 
-# Data pre-processing and prediction
 features_cs = np.array([fly_ash, fly_ash_type, sand, sand_type, avg_sand_size, max_sand_size, limestone, limestone_max_size, bfs, silica_fume, w_b, sp, fiber_type, fibre_length, fibre_volume, fibre_elasticity, fibre_dia, tensile_strength, fibre_density ])
 features_ts = np.array([fly_ash, fly_ash_type, sand, sand_type, avg_sand_size, max_sand_size, limestone, limestone_max_size, bfs, silica_fume, w_b, sp, fiber_type, fibre_length, fibre_volume, fibre_elasticity, fibre_dia, tensile_strength, fibre_density ])
 features_fs = np.array([fly_ash, fly_ash_type, sand, sand_type, avg_sand_size, max_sand_size, limestone, limestone_max_size, bfs, w_b, sp, fiber_type, fibre_length, fibre_volume, fibre_elasticity, fibre_dia, tensile_strength, fibre_density ])
@@ -97,15 +97,13 @@ pca_features_cs = pca_cs.transform(scaled_features_cs)
 pca_features_ts = pca_ts.transform(scaled_features_ts)
 pca_features_fs = pca_fs.transform(scaled_features_fs)
 
+prediction_cs = model_cs.predict(pca_features_cs)
+prediction_ts = model_ts.predict(pca_features_ts)
+prediction_fs = model_fs.predict(pca_features_fs)
+
 with col3:
-    st.write('Predictions')
-
+    st.header('📝 Prediction')
     if st.button('Predict'):
-        pred_cs = model_cs.predict(pca_features_cs)
-        st.write(f'CS value: {pred_cs[0]}')
-
-        pred_ts = model_ts.predict(pca_features_ts)
-        st.write(f'TS value: {pred_ts[0]}')
-
-        pred_fs = model_fs.predict(pca_features_fs)
-        st.write(f'FS value: {pred_fs[0]}')
+        st.write(f'Compressive Strength (CS): {prediction_cs[0]} Mpa')
+        st.write(f'Tensile Strain (TS): {prediction_ts[0]} %')
+        st.write(f'Flexural Strength (FS): {prediction_fs[0]} Mpa')
