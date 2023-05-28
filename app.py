@@ -44,7 +44,7 @@ iit_logo = "iitr_logo.jpg"
 image = open(iit_logo, "rb").read()
 
 st.image(image, use_column_width=True, caption="<div style='position: absolute; top: 50%; right: 0; transform: translate(-50%, -50%)'>IIT Logo</div>", unsafe_allow_html=True)
-)
+
 st.title('🧱 Micromechanical Properties Prediction Application')
 
 st.write("""
