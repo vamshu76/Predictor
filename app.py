@@ -5,9 +5,9 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
-iit_logo = "https://your_image_url.jpg"
+iit_logo = "IITR-175-logo.jpg"
 st.markdown(
-    f"<div style='text-align: right'><img src='{image_url}'></div>", 
+    f"<div style='text-align: right'><img src='{IITR-175-logo.jpg}'></div>", 
     unsafe_allow_html=True,
 )
 
