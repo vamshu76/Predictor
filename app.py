@@ -42,8 +42,11 @@ st.set_page_config(
 )
 iit_logo = "iitr.jpg"
 image = open(iit_logo, "rb").read()
-st.image(image, width=450, height=130)
-
+st.markdown(
+    f'<img src="data:image/jpg;base64,{base64.b64encode(image).decode("utf-8")}" '
+    'style="width: 450px; height: 130px;">',
+    unsafe_allow_html=True
+)
 st.title('🧱 ECC Micromechanical Properties Prediction Application')
 
 st.write("""
