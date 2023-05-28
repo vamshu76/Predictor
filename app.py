@@ -6,50 +6,74 @@ st.set_page_config(layout="wide")
 
 st.title('Micromechanical Properties Prediction Application')
 
-# inputs
+# Load scaler, PCA, and models
+scaler_cs = pickle.load(open('scaler_cs.pkl', 'wb'))
+scaler_ts = pickle.load(open('scaler_ts.pkl', 'wb'))
+scaler_fs = pickle.load(open('scaler_fs.pkl', 'wb'))
+pca_cs = pickle.load(open('pca_cs.pkl', 'wb'))
+pca_ts = pickle.load(open('pca_ts.pkl', 'wb'))
+pca_fs = pickle.load(open('pca_fs.pkl', 'wb'))
+model_cs = pickle.load(open('cs.sav', 'wb'))
+model_ts = pickle.load(open('ts.sav', 'wb'))
+model_fs = pickle.load(open('fs.sav', 'wb'))
 
+# inputs
 col1, col2, col3 = st.columns(3)
 
 fly_ash_type_dict = {"No Fly Ash": 0, "Class C": 1, "Class F": 2, "Grade I": 3}
-sand_type_dict = {"Silica Sand": 1, "Crushed Sand": 2, "Gravel Sand": 3, "River Sand": 5}
+sand_type_dict = {"Silica Sand": 1, "Crushed Sand": 2, "Gravel Sand": 3, "Dune Sand" : 4, "River Sand": 5}
+fiber_type_dict = {"PVA Fiber" : 1, "PE Fiber" : 2}
 
 with col1:
     st.write('Mix Proportions Ratio')
     fly_ash = st.number_input('Fly Ash (0 to 4.4)', min_value = 0.0, max_value = 4.4)
     fly_ash_type_label = st.selectbox('Fly Ash Type', options=list(fly_ash_type_dict.keys()))
     fly_ash_type = fly_ash_type_dict[fly_ash_type_label]
-    sand = st.number_input('Sand(0.7 to 2)', min_value = 0.0, max_value = 2.0)
+    sand = st.number_input('Sand(0 to 2.2)', min_value = 0.0, max_value = 2.2)
     sand_type_label = st.selectbox('Sand Type', options=list(sand_type_dict.keys()))
     sand_type = sand_type_dict[sand_type_label]
-    avg_sand_size = st.number_input('Average Sand Size(µm) (0 to 943)', min_value = 24.0, max_value = 1000.0)
-    max_sand_size = st.number_input('Max Sand Size(µm) (0 to 4750)', min_value = 100.0, max_value = 4750.00)
-    w_b = st.number_input('Water/Binder (0.16 to .87)', min_value = 0.16, max_value = .87)
-    sp = st.number_input('Superplasticizer/Binder (.12 to 2.72)', min_value = 0.12, max_value = 2.72)
-    
+    avg_sand_size = st.number_input('Average Sand Size(µm) (0 to 943)', min_value = 0.0, max_value = 943.0)
+    max_sand_size = st.number_input('Max Sand Size(µm) (0 to 4750)', min_value = 0.0, max_value = 4750.00)
+    limestone = st.number_input('Limestone (0 to 3.3)', min_value = 0.0, max_value = 3.3)
+    limestone_max_size = st.number_input('Limestone Max Size (0 to 300)', min_value = 0.0, max_value = 300.0)
+    bfs = st.number_input('Blast Furnace Slag (0 to 2.3)', min_value = 0.0, max_value = 2.3)
+    silica_fume = st.number_input('Silica Fume (0 to 0.58)', min_value = 0.0, max_value = 0.58)
+    w_b = st.number_input('Water/Binder (0.12 to 0.61)', min_value = 0.12, max_value = 0.61)
+    sp = st.number_input('Superplasticizer/Binder (0 to 2.5)', min_value = 0.0, max_value = 2.5)
+
 with col2:
     st.write('PVA Fiber Properties')
+    fiber_type_label = st.selectbox('Fiber Type', options=list(fiber_type_dict.keys()))
+    fiber_type = fiber_type_dict[fiber_type_label]
     fibre_length = st.number_input('Fibre Length(mm) (8 to 18)', min_value = 8.0, max_value = 18.0)
-    fibre_volume = st.number_input('Fibre Volume(%) (1 to 2.5)', min_value = 1.0, max_value = 2.5)
-    fibre_dia = st.number_input('Fibre Diameter(µm) (34 to 40)', min_value = 34.0, max_value = 40.0)
+    fibre_volume = st.number_input('Fibre Volume(%) (0.41 to 3)', min_value = 0.41, max_value = 3)
+    fibre_elasticity = st.number_input('Fibre Elasticity(Gpa) (10 to 116)', min_value = 10.0, max_value = 116.0)
+    fibre_dia = st.number_input('Fibre Diameter(µm) (24 to 200)', min_value = 24.0, max_value = 200.0)
+    tensile_strength = st.number_input('Tensile Strength(Mpa) (1275 to 3000)', min_value = 1275.0, max_value = 3000.0)
+    fibre_density = st.number_input('Fibre Density(Kg/m3) (970 to 1600)', min_value = 970.0, max_value = 1600.0)
 
-features = np.array([fly_ash, fly_ash_type, sand, sand_type, avg_sand_size,max_sand_size, w_b, sp, fibre_length, fibre_volume,  fibre_dia])
-features = features.reshape(1, -1)
+# Data pre-processing and prediction
+features_cs = np.array([fly_ash, fly_ash_type, sand, sand_type, avg_sand_size, max_sand_size, limestone, limestone_max_size, bfs, silica_fume, w_b, sp, fiber_type, fibre_length, fibre_volume, fibre_elasticity, fibre_dia, tensile_strength, fibre_density ])
+features_ts = np.array([fly_ash, fly_ash_type, sand, sand_type, avg_sand_size, max_sand_size, limestone, limestone_max_size, bfs, silica_fume, w_b, sp, fiber_type, fibre_length, fibre_volume, fibre_elasticity, fibre_dia, tensile_strength, fibre_density ])
+features_fs = np.array([fly_ash, fly_ash_type, sand, sand_type, avg_sand_size, max_sand_size, limestone, limestone_max_size, bfs, w_b, sp, fiber_type, fibre_length, fibre_volume, fibre_elasticity, fibre_dia, tensile_strength, fibre_density ])
+
+scaled_features_cs = scaler_cs.transform(features_cs.reshape(1, -1))
+scaled_features_ts = scaler_ts.transform(features_ts.reshape(1, -1))
+scaled_features_fs = scaler_fs.transform(features_fs.reshape(1, -1))
+
+pca_features_cs = pca_cs.transform(scaled_features_cs)
+pca_features_ts = pca_ts.transform(scaled_features_ts)
+pca_features_fs = pca_fs.transform(scaled_features_fs)
 
 with col3:
     st.write('Predictions')
 
     if st.button('Predict'):
-        best_rf = pickle.load(open('cs.sav', 'rb'))
-        pred = best_rf.predict(features)
-        st.write(f'CS value: {pred[0]}')
-        
-        best_rf = pickle.load(open('ts.sav', 'rb'))
-        pred = best_rf.predict(features)
-        st.write(f'TS value: {pred[0]}')
-        
-        best_rf = pickle.load(open('fs.sav', 'rb'))
-        pred = best_rf.predict(features)
-        st.write(f'FS value: {pred[0]}')
+        pred_cs = model_cs.predict(pca_features_cs)
+        st.write(f'CS value: {pred_cs[0]}')
 
-        
-        
+        pred_ts = model_ts.predict(pca_features_ts)
+        st.write(f'TS value: {pred_ts[0]}')
+
+        pred_fs = model_fs.predict(pca_features_fs)
+        st.write(f'FS value: {pred_fs[0]}')
