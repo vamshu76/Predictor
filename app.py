@@ -42,8 +42,9 @@ st.set_page_config(
 )
 iit_logo = "iitr_logo.jpg"
 image = open(iit_logo, "rb").read()
-
-st.image(image, use_column_width=True, caption="<div style='position: absolute; top: 50%; right: 0; transform: translate(-50%, -50%)'>IIT Logo</div>", unsafe_allow_html=True)
+b64_image = base64.b64encode(image).decode("utf-8")
+image_html = f'<img src="data:image/jpg;base64,{b64_image}" style="position: absolute; top: 50%; right: 0; transform: translate(-50%, -50%)">'
+st.markdown(image_html, unsafe_allow_html=True)
 
 st.title('🧱 Micromechanical Properties Prediction Application')
 
