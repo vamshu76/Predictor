@@ -125,6 +125,8 @@ prediction_fs = model_fs.predict(pca_features_fs)
 with col3:
     st.header('📝 Prediction')
     if st.button('Predict'):
-        st.write(f'Compressive Strength (CS): {prediction_cs[0]} Mpa')
-        st.write(f'Tensile Strain (TS): {prediction_ts[0]} %')
-        st.write(f'Flexural Strength (FS): {prediction_fs[0]} Mpa')
+        st.markdown(f'<div style="background-color: #f0f0f5; padding: 10px; border: 1px solid gray;">'
+                    f'<h4>Compressive Strength (CS): {round(prediction_cs[0], 2)} Mpa</h4>'
+                    f'<h4>Tensile Strain (TS): {round(prediction_ts[0], 2)} %</h4>'
+                    f'<h4>Flexural Strength (FS): {round(prediction_fs[0], 2)} Mpa</h4>'
+                    '</div>', unsafe_allow_html=True)
