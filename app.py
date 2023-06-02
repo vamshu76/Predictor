@@ -126,7 +126,7 @@ with col3:
     st.header('📝 Prediction')
     if st.button('Predict'):
         st.markdown(f'<div style="background-color: #f0f0f5; padding: 10px; border: 1px solid gray;">'
-                    f'<h4 style="color: black;">Compressive Strength (CS): {round(prediction_cs[0], 2)} Mpa</h4>'
-                    f'<h4 style="color: black;">Tensile Strain (TS): {round(prediction_ts[0], 2)} %</h4>'
-                    f'<h4 style="color: black;">Flexural Strength (FS): {round(prediction_fs[0], 2)} Mpa</h4>'
+                    f'<h4 style="color: black;">Compressive Strength (CS): {round(prediction_cs[0][0], 2)} Mpa</h4>'
+                    f'<h4 style="color: black;">Tensile Strain (TS): {round(prediction_ts[0][0], 2)} %</h4>'
+                    f'<h4 style="color: black;">Flexural Strength (FS): {round(prediction_fs[0][0], 2)} Mpa</h4>'
                     '</div>', unsafe_allow_html=True)
