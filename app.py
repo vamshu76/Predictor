@@ -80,31 +80,31 @@ fiber_type_dict = {"PVA Fiber" : 1, "PE Fiber" : 2}
 
 with col1:
     st.header('📊 Mix Proportions Ratio')
-    fly_ash = st.number_input('Fly Ash (0 to 4.4)', min_value = 0.0, max_value = 4.4)
+    fly_ash = st.number_input('Fly Ash (0 - 4.4)', min_value = 0.0, max_value = 4.4)
     fly_ash_type_label = st.selectbox('Fly Ash Type', options=list(fly_ash_type_dict.keys()))
     fly_ash_type = fly_ash_type_dict[fly_ash_type_label]
-    sand = st.number_input('Sand(0 to 2.2)', min_value = 0.0, max_value = 2.2)
+    sand = st.number_input('Sand(0 - 2.2)', min_value = 0.0, max_value = 2.2)
     sand_type_label = st.selectbox('Sand Type', options=list(sand_type_dict.keys()))
     sand_type = sand_type_dict[sand_type_label]
-    avg_sand_size = st.number_input('Average Sand Size(µm) (0 to 943)', min_value = 0.0, max_value = 943.0)
-    max_sand_size = st.number_input('Max Sand Size(µm) (0 to 4750)', min_value = 0.0, max_value = 4750.00)
-    limestone = st.number_input('Limestone (0 to 3.3)', min_value = 0.0, max_value = 3.3)
-    limestone_max_size = st.number_input('Limestone Max Size (0 to 300)', min_value = 0.0, max_value = 300.0)
-    bfs = st.number_input('Blast Furnace Slag (0 to 2.3)', min_value = 0.0, max_value = 2.3)
-    silica_fume = st.number_input('Silica Fume (0 to 0.58)', min_value = 0.0, max_value = 0.58)
-    w_b = st.number_input('Water/Binder (0.12 to 0.61)', min_value = 0.12, max_value = 0.61)
-    sp = st.number_input('Superplasticizer/Binder (0 to 2.5)', min_value = 0.0, max_value = 2.5)
+    avg_sand_size = st.number_input('Average Sand Size (µm) (0 - 943)', min_value = 0.0, max_value = 943.0)
+    max_sand_size = st.number_input('Max Sand Size (µm) (0 - 4750)', min_value = 0.0, max_value = 4750.00)
+    limestone = st.number_input('Limestone (0 - 3.3)', min_value = 0.0, max_value = 3.3)
+    limestone_max_size = st.number_input('Limestone Max Size (µm) (0 - 300)', min_value = 0.0, max_value = 300.0)
+    bfs = st.number_input('Blast Furnace Slag (0 - 2.3)', min_value = 0.0, max_value = 2.3)
+    silica_fume = st.number_input('Silica Fume (0 - 0.58)', min_value = 0.0, max_value = 0.58)
+    w_b = st.number_input('Water/Binder (0.12 - 0.61)', min_value = 0.12, max_value = 0.61)
+    sp = st.number_input('Superplasticizer/Binder (0 - 2.5)', min_value = 0.0, max_value = 2.5)
 
 with col2:
     st.header('🔬 PVA Fiber Properties')
     fiber_type_label = st.selectbox('Fiber Type', options=list(fiber_type_dict.keys()))
     fiber_type = fiber_type_dict[fiber_type_label]
-    fibre_length = st.number_input('Fibre Length(mm) (8 to 18)', min_value = 8.0, max_value = 18.0)
-    fibre_volume = st.number_input('Fibre Volume(%) (0.41 to 3)', min_value = 0.41, max_value = 3.0)
-    fibre_elasticity = st.number_input('Fibre Elasticity(Gpa) (10 to 116)', min_value = 10.0, max_value = 116.0)
-    fibre_dia = st.number_input('Fibre Diameter(µm) (24 to 200)', min_value = 24.0, max_value = 200.0)
-    tensile_strength = st.number_input('Tensile Strength(Mpa) (1275 to 3000)', min_value = 1275.0, max_value = 3000.0)
-    fibre_density = st.number_input('Fibre Density(Kg/m3) (970 to 1600)', min_value = 970.0, max_value = 1600.0)
+    fibre_length = st.number_input('Fibre Length (mm) (8 - 18)', min_value = 8.0, max_value = 18.0)
+    fibre_volume = st.number_input('Fibre Volume (%) (0.41 - 3)', min_value = 0.41, max_value = 3.0)
+    fibre_elasticity = st.number_input('Fibre Elasticity (GPa) (10 - 116)', min_value = 10.0, max_value = 116.0)
+    fibre_dia = st.number_input('Fibre Diameter (µm) (24 - 200)', min_value = 24.0, max_value = 200.0)
+    tensile_strength = st.number_input('Tensile Strength (MPa) (1275 - 3000)', min_value = 1275.0, max_value = 3000.0)
+    fibre_density = st.number_input('Fibre Density (Kg/m3\u00B3) (970 - 1600)', min_value = 970.0, max_value = 1600.0)
 
 features_cs = np.array([fly_ash, fly_ash_type, sand, sand_type, avg_sand_size, max_sand_size, limestone, limestone_max_size, bfs, silica_fume, w_b, sp, fiber_type, fibre_length, fibre_volume, fibre_elasticity, fibre_dia, tensile_strength, fibre_density ])
 features_ts = np.array([fly_ash, fly_ash_type, sand, sand_type, avg_sand_size, max_sand_size, limestone, limestone_max_size, bfs, silica_fume, w_b, sp, fiber_type, fibre_length, fibre_volume, fibre_elasticity, fibre_dia, tensile_strength, fibre_density ])
@@ -126,7 +126,7 @@ with col3:
     st.header('📝 Prediction')
     if st.button('Predict'):
         st.markdown(f'<div style="background-color: #f0f0f5; padding: 10px; border: 1px solid gray;">'
-                    f'<h4 style="color: black;">Compressive Strength (CS): {prediction_cs[0]:.2f} Mpa</h4>'
+                    f'<h4 style="color: black;">Compressive Strength (CS): {prediction_cs[0]:.2f} MPa</h4>'
                     f'<h4 style="color: black;">Tensile Strain (TS): {prediction_ts[0]:.2f} %</h4>'
-                    f'<h4 style="color: black;">Flexural Strength (FS): {prediction_fs[0]:.2f} Mpa</h4>'
+                    f'<h4 style="color: black;">Flexural Strength (FS): {prediction_fs[0]:.2f} MPa</h4>'
                     '</div>', unsafe_allow_html=True)
