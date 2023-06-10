@@ -74,7 +74,7 @@ model_fs = pickle.load(open('fs.sav', 'rb'))
 
 col1, col2, col3 = st.columns(3)
 
-fly_ash_type_dict = {"No Fly Ash": 0, "Class C": 1, "Class F": 2, "Grade I": 3}
+fly_ash_type_dict = {"No Fly Ash": 0, "Class C": 1, "Class F": 2, "Grade I": 3, , "Grade II": 4}
 sand_type_dict = {"Silica Sand": 1, "Crushed Sand": 2, "Gravel Sand": 3, "Dune Sand" : 4, "River Sand": 5}
 fiber_type_dict = {"PVA Fiber" : 1, "PE Fiber" : 2}
 
